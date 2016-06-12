@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/fuli"
+            android:checked="true"
+            android:icon="@mipmap/ic_photo_size_select_actual_white_24dp"
+            android:title="@string/menu_fuli"/>
+    </group>
+
+</menu>

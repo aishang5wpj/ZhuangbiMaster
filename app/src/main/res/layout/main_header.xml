@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/main_header_temp_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="24°"
+        android:textColor="@android:color/white"
+        android:textSize="45sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/main_header_temp_tv"
+        android:layout_alignTop="@id/main_header_temp_tv"
+        android:layout_toRightOf="@id/main_header_temp_tv"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/main_header_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上海"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/main_header_weather_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="晴 微风"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+</RelativeLayout>
