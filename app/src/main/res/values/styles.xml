@@ -13,4 +13,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Toolbar">
+    </style>
+
+    <style name="Toolbar.Transparent">
+        <!--toolbar文字颜色 -->
+        <item name="android:textColorPrimary">@color/white</item>
+        <!--toolbar按钮颜色 -->
+        <item name="colorControlNormal">?android:attr/textColorPrimary</item>
+    </style>
+
 </resources>
