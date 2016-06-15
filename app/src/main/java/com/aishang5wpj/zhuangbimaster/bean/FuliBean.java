@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by wpj on 16/6/12下午4:20.
  */
-public class FuliBean {
+public class FuliBean extends TextBean {
 
     public boolean error;
     public List<Fuli> results;

@@ -3,6 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/joke"
+            android:checked="true"
+            android:icon="@mipmap/ic_photo_size_select_actual_white_24dp"
+            android:title="@string/menu_joke"/>
+        <item
             android:id="@+id/fuli"
             android:checked="true"
             android:icon="@mipmap/ic_photo_size_select_actual_white_24dp"

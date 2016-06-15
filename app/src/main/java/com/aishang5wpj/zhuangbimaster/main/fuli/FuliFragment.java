@@ -32,6 +32,49 @@ public class FuliFragment extends MvpFragment<IFuliView, FuliPresenterImpl> impl
 
     protected int mPageNum;
     protected FuliAdapter mAdapter;
+    /**
+     * 上拉加载更多
+     */
+    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+
+        private int lastVisibleItem;
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView,
+                                         int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE
+                    && lastVisibleItem + 1 == mRecyclerView.getAdapter().getItemCount()) {
+
+                mPresenter.load(mPageNum);
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
+            int[] lastPositions = layoutManager.findLastVisibleItemPositions(null);
+            lastVisibleItem = getMaxPosition(lastPositions);
+        }
+
+        /**
+         * 获得最大的位置
+         *
+         * @param positions
+         * @return
+         * @see http://www.cnblogs.com/xiaoyaoxia/p/4977125.html
+         * */
+        private int getMaxPosition(int[] positions) {
+            int size = positions.length;
+            int maxPosition = Integer.MIN_VALUE;
+            for (int i = 0; i < size; i++) {
+                maxPosition = Math.max(maxPosition, positions[i]);
+            }
+            return maxPosition;
+        }
+    };
 
     @Override
     protected FuliPresenterImpl createPresenter(BaseView view) {
@@ -49,6 +92,9 @@ public class FuliFragment extends MvpFragment<IFuliView, FuliPresenterImpl> impl
 
         initViews();
 
+        mPageNum = mPresenter.getStartIndex();
+        mPresenter.load(mPageNum);
+
         return view;
     }
 
@@ -62,49 +108,10 @@ public class FuliFragment extends MvpFragment<IFuliView, FuliPresenterImpl> impl
                 mPresenter.load(mPageNum);
             }
         });
-        mAdapter = new FuliAdapter();
+        mAdapter = new FuliAdapter(getActivity());
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            private int lastVisibleItem;
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView,
-                                             int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastVisibleItem + 1 == mRecyclerView.getAdapter().getItemCount()) {
-
-                    mPresenter.load(mPageNum);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
-                int[] lastPositions = layoutManager.findLastVisibleItemPositions(null);
-                lastVisibleItem = getMaxPosition(lastPositions);
-            }
-
-            /**
-             * 获得最大的位置
-             *
-             * @param positions
-             * @return
-             * @see http://www.cnblogs.com/xiaoyaoxia/p/4977125.html
-             * */
-            private int getMaxPosition(int[] positions) {
-                int size = positions.length;
-                int maxPosition = Integer.MIN_VALUE;
-                for (int i = 0; i < size; i++) {
-                    maxPosition = Math.max(maxPosition, positions[i]);
-                }
-                return maxPosition;
-            }
-        });
+        mRecyclerView.addOnScrollListener(mScrollListener);
     }
 
     @Override

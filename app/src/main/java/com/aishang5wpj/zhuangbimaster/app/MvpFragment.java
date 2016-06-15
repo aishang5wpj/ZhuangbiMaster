@@ -2,6 +2,9 @@ package com.aishang5wpj.zhuangbimaster.app;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 /**
@@ -12,11 +15,12 @@ public abstract class MvpFragment<V extends BaseView, P extends BasePresenter<V>
 
     protected P mPresenter;
 
+    @Nullable
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
         mPresenter = createPresenter(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     protected abstract P createPresenter(BaseView view);

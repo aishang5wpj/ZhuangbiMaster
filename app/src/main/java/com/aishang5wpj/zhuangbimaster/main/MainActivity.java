@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aishang5wpj.zhuangbimaster.R;
@@ -16,7 +17,9 @@ import com.aishang5wpj.zhuangbimaster.app.BaseFragment;
 import com.aishang5wpj.zhuangbimaster.app.BaseView;
 import com.aishang5wpj.zhuangbimaster.app.MvpActivity;
 import com.aishang5wpj.zhuangbimaster.bean.WeatherBean;
+import com.aishang5wpj.zhuangbimaster.imageloader.ImageUtils;
 import com.aishang5wpj.zhuangbimaster.main.fuli.FuliFragment;
+import com.aishang5wpj.zhuangbimaster.main.joke.JokeFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +38,7 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenterImpl> impl
 
     //在NavigationView的header中，BindView似乎找不到
     protected TextView mCityTv, mTempTv, mWeatherTv;
+    protected ImageView mIconIv;
 
     private String mLastFragment;
     private Map<String, BaseFragment> mFragmentMap;
@@ -50,9 +54,12 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenterImpl> impl
 
         mFragmentMap = new HashMap<>();
         mFragmentMap.put(getString(R.string.menu_fuli), new FuliFragment());
+        mFragmentMap.put(getString(R.string.menu_joke), new JokeFragment());
+
+        ImageUtils.getInstance().displayCircleImg(mIconIv, R.mipmap.ftm);
 
         mPresenter.loadWeather("上海");
-        switch2Fragment(getString(R.string.menu_fuli));
+        switch2Fragment(getString(R.string.menu_joke));
     }
 
     protected void initViews() {
@@ -61,6 +68,7 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenterImpl> impl
         mCityTv = (TextView) headerLayout.findViewById(R.id.main_header_city_tv);
         mTempTv = (TextView) headerLayout.findViewById(R.id.main_header_temp_tv);
         mWeatherTv = (TextView) headerLayout.findViewById(R.id.main_header_weather_tv);
+        mIconIv = (ImageView) headerLayout.findViewById(R.id.imageview);
 
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.drawer_open, R.string.drawer_close);
@@ -89,7 +97,7 @@ public class MainActivity extends MvpActivity<IMainView, MainPresenterImpl> impl
         String showTag = showFragment.toString();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if (ft.isEmpty()) {
+        if (mLastFragment == null) {
 
             ft.replace(R.id.main_container_layout, showFragment, showTag);
 

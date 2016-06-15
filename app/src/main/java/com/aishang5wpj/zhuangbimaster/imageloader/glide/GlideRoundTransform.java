@@ -1,4 +1,4 @@
-package com.aishang5wpj.zhuangbimaster.glide;
+package com.aishang5wpj.zhuangbimaster.imageloader.glide;
 
 import android.content.Context;
 import android.content.res.Resources;

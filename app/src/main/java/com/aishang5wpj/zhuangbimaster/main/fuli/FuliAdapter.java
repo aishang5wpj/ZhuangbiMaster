@@ -1,6 +1,10 @@
 package com.aishang5wpj.zhuangbimaster.main.fuli;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aishang5wpj.zhuangbimaster.R;
+import com.aishang5wpj.zhuangbimaster.app.ImageDetailActivity;
 import com.aishang5wpj.zhuangbimaster.bean.ImageBean;
-import com.aishang5wpj.zhuangbimaster.glide.ImageUtils;
+import com.aishang5wpj.zhuangbimaster.imageloader.ImageUtils;
 import com.aishang5wpj.zhuangbimaster.utils.Utils;
 
 import java.util.ArrayList;
@@ -24,8 +29,10 @@ import butterknife.ButterKnife;
 public class FuliAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<ImageBean> mImageList;
+    private Activity mActivity;
 
-    public FuliAdapter() {
+    public FuliAdapter(Activity activity) {
+        mActivity = activity;
         mImageList = new ArrayList<>();
     }
 
@@ -40,14 +47,26 @@ public class FuliAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-        ImageBean imageBean = mImageList.get(position);
+        final ImageBean imageBean = mImageList.get(position);
 
-        Context context = ((MyHolder) holder).mImageView.getContext();
+        final Context context = ((MyHolder) holder).mImageView.getContext();
         myHolder.mImageView.getLayoutParams().width = Utils.getWindowWidth(context) / 3;
         myHolder.mImageView.getLayoutParams().height = (int) (Math.random() * Utils.dp2px(context, 150)
                 + Utils.dp2px(context, 100));
 
         ImageUtils.getInstance().display(myHolder.mImageView, imageBean.url);
+        myHolder.mViewGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ImageDetailActivity.class);
+                intent.putExtra(ImageDetailActivity.URL, imageBean.url);
+                View transitionView = v;
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        mActivity, transitionView, "transitionName");
+
+                ActivityCompat.startActivity(mActivity, intent, options.toBundle());
+            }
+        });
     }
 
     @Override
@@ -75,6 +94,8 @@ public class FuliAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @BindView(R.id.imageview)
         public ImageView mImageView;
+        @BindView(R.id.viewgroup)
+        public ViewGroup mViewGroup;
 
         public MyHolder(View itemView) {
             super(itemView);

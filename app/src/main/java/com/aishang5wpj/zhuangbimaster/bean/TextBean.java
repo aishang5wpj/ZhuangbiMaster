@@ -8,9 +8,9 @@ import com.google.gson.Gson;
 public abstract class TextBean {
 
     /**
-     * 默认有效期限是1分钟：24 * 60 * 60 * 1000
+     * 默认有效期限是1小时： 60 * 60 * 1000
      */
-    private static final long EXPIRE_LIMIT = 60 * 1000;
+    private static final long EXPIRE_LIMIT = 60 * 60 * 1000;
     private long mCreateTime;
 
     public TextBean() {

@@ -1,6 +1,7 @@
 package com.aishang5wpj.zhuangbimaster.http;
 
 import com.aishang5wpj.zhuangbimaster.bean.FuliBean;
+import com.aishang5wpj.zhuangbimaster.bean.JokeBean;
 import com.aishang5wpj.zhuangbimaster.bean.WeatherBean;
 
 import retrofit2.http.GET;
@@ -20,4 +21,7 @@ public interface ApiManager {
 
     @GET("data/%E7%A6%8F%E5%88%A9/{pageSize}/{pageNum}")
     Observable<FuliBean> getFuli(@Path("pageSize") int pageSize, @Path("pageNum") int pageNum);
+
+    @GET("xiaohua/list.do")
+    Observable<JokeBean> getJoke(@Query("page") int page, @Query("size") int size);
 }
