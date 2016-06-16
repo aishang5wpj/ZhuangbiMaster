@@ -7,7 +7,7 @@ import rx.Observable;
 /**
  * Created by wpj on 16/6/13下午4:32.
  */
-public abstract interface ICache {
+public interface ICache {
 
     <T extends TextBean> Observable<T> get(String key, Class<T> cls);
 

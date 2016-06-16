@@ -27,11 +27,19 @@ MVP + Retrofit + RxJava + RxAndroid结合的实战项目，实现三级缓存，
 
 #项目结构
 
-项目采用MVP的架构，大致如下：
+项目采用MVP的架构，大致如下（第一次画uml图，肯定画的不好，求轻喷）：
 
 ![image](https://github.com/aishang5wpj/ZhuangbiMaster/raw/master/images/mvp.png)
 
+三级缓存设计如下：
 
+![image](https://github.com/aishang5wpj/ZhuangbiMaster/raw/master/images/cache_studio.png)
+
+（上面这张图是android studio自动生成的类结构，不知道你们看的习惯不，反正我是不习惯）
+
+![image](https://github.com/aishang5wpj/ZhuangbiMaster/raw/master/images/cache.png)
+
+这是我自己画的图，将就着看吧~
 
 #推荐阅读
 - [浅析如何高效的使用MVP](http://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650820273&idx=1&sn=bb390bd5b1b678435ee4ae5014c651d2&scene=0#wechat_redirect)
