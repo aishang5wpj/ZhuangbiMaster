@@ -6,7 +6,7 @@ MVP + Retrofit + RxJava + RxAndroid结合的实战项目，实现三级缓存，
 
 下面是截图，打开app之前已经把进程杀掉了，而且手机的流量和wifi都关了（注意屏幕顶部的状态栏，可以看到是没有数据交互的）。
 
-可以看到，离线时候的表现依然抢眼。
+可以看到，离线时候的使用跟正常情况下几无区别。
 
 ![image](https://github.com/aishang5wpj/ZhuangbiMaster/raw/master/screenshot.gif)
 
@@ -40,6 +40,8 @@ MVP + Retrofit + RxJava + RxAndroid结合的实战项目，实现三级缓存，
 ![image](https://github.com/aishang5wpj/ZhuangbiMaster/raw/master/images/cache.png)
 
 这是我自己画的图，将就着看吧~
+
+详细实现请看这里：[《泛型模式下的Retrofit + rxJava实现三级缓存》](http://blog.csdn.net/aishang5wpj/article/details/51692824)
 
 #推荐阅读
 - [浅析如何高效的使用MVP](http://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650820273&idx=1&sn=bb390bd5b1b678435ee4ae5014c651d2&scene=0#wechat_redirect)
